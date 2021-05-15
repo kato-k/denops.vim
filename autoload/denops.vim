@@ -1,10 +1,12 @@
 function! denops#debug(...) abort
-  let msg = join(a:000)
-  echohl Comment
-  for line in split(msg, '\n')
-    echomsg printf('[denops] %s', line)
-  endfor
-  echohl None
+  if g:denops#loglevel >= 1
+    let msg = join(a:000)
+    echohl Comment
+    for line in split(msg, '\n')
+      echomsg printf('[denops] %s', line)
+    endfor
+    echohl None
+  endif
 endfunction
 
 function! denops#info(...) abort
@@ -39,6 +41,7 @@ endfunction
 
 " Configuration
 let g:denops#deno = get(g:, 'denops#deno', exepath('deno'))
+let g:denops#loglevel = exists("g:denops#loglevel") ? g:denops#loglevel : 0
 
 
 " OBSOLETED
